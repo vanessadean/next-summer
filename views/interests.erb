@@ -1,0 +1,4 @@
+<h2>What are you interested in?</h2>
+<% @interests.each do |tag| %>
+  <h3><a href="/interests/<%= tag.id %>"><%= tag.name %></a></h3>
+<% end %>

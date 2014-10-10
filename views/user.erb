@@ -1,0 +1,33 @@
+<div class="row"> 
+  <div class="col-sm-8"> 
+    <h1><%= @user.name %></h1>
+
+    <h3><a href="https://twitter.com/<%= @user.twitter %>" target="_blank">@<%= @user.twitter %></a></h3>
+    <p>See an activity on my list that <strong>you</strong> want to do next summer? Tweet at me with #nextsummer.</p>
+
+    <% if @activities_done %>
+      <h2>This is what I did last summer</h2>
+      <% @activities_done.each do |activity_done| %>
+        <h3><strong><a href="<%= activity_done.activity.link %>" target="_blank"><%= activity_done.activity.description %></a></strong></h3>
+        <p><%= activity_done.activity.link %></p>
+        <p><strong>Tags:</strong>
+        <% activity_done.activity.tags.each do |tag| %>
+          <a href="/interests/<%= tag.id %>">#<%= tag.name %></a>
+        <% end %></p>
+      <% end %>
+    <% end %>
+
+    <% if @activities_todo %>
+      <h2>This is what I want to do next summer<h2>
+      <% @activities_todo.each do |activity_todo| %>
+        <h3><strong><a href="<%= activity_todo.activity.link %>" target="_blank"><%= activity_todo.activity.description %></a></strong></h3>
+        <p><%= activity_todo.activity.link %></p>
+        <p><strong>Tags:</strong>
+        <% activity_todo.activity.tags.each do |tag| %>
+          <a href="/interests/<%= tag.id %>">#<%= tag.name %></a> 
+        <% end %></p>
+      <% end %>
+    <% end %>
+
+  </div>
+</div>

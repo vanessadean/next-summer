@@ -1,35 +1,47 @@
 require 'bundler'
 Bundler.require
+require_relative "config/environment.rb"
 
-Dir.glob('./lib/*.rb') do |model|
-  require model
-end
+class App < Sinatra::Application
+  #configure
+  configure do
+    set :root, File.dirname(__FILE__)
+    set :public_folder, 'public'
+  end
 
-module Name
-  class App < Sinatra::Application
+  #database
+  set :database, "sqlite3:///database.db"
 
-    #configure
-    configure do
-      set :root, File.dirname(__FILE__)
-      set :public_folder, 'public'
-    end
+  get '/' do
+    @users = User.all.sample(5).sort_by { |user| user.name }
+    @tags = Tag.all.sample(10).sort_by { |tag| tag.name }
+    erb :index
+  end
 
-    #database
-    set :database, "sqlite3:///database.db"
+  get '/users' do
+    @users = User.all
+    erb :users
+  end
 
-    #filters
+  get '/users/:id' do
+    @user = User.find(params[:id])
+    @activities_done = @user.user_activities.where(done: true)
+    @activities_todo = @user.user_activities.where(done: false)
+    erb :user
+  end
 
-    #routes
-    get '/' do
-      erb :index
-    end
+  get '/activities' do
+    @activities = Activity.all
+    erb :activities
+  end
 
-    #helpers
-    helpers do
-      def partial(file_name)
-        erb file_name, :layout => false
-      end
-    end
+  get '/interests' do
+    @interests = Tag.all
+    erb :interests
+  end
 
+  get '/interests/:id' do
+    @interest = Tag.find(params[:id])
+    erb :interest
   end
 end

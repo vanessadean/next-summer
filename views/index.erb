@@ -1,2 +1,20 @@
-<h1>classy</h1>
-<h2>as fuck</h2>
+<div class="row">
+  <div class="col-sm-6">
+    <h2>What's everyone been up to?</h2>
+    <% @users.each do |user| %>
+      <h3><a href="/users/<%= user.id %>"><strong><%= user.name %></strong></a></h3>
+      <% user.user_activities.each do |user_activity| %>
+        <% if user_activity.done == true %>
+          <p><%= user_activity.activity.description %></p>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="col-sm-6">
+    <h2>What are you interested in?</h2> 
+    <% @tags.each do |tag| %>
+      <h3><a href="/interests/<%= tag.id %>"><%= tag.name %></a></h3>
+    <% end %>
+  </div>
+</div>
