@@ -1,11 +1,15 @@
 require "sinatra/activerecord/rake"
 require 'pry'
+require 'omniauth-twitter'
 
 require_relative "../lib/activity.rb"
 require_relative "../lib/activity_tag.rb"
 require_relative "../lib/user.rb"
 require_relative "../lib/user_activity.rb"
 require_relative "../lib/tag.rb"
+
+#database
+set :database, "sqlite3:///database.db"
 
 configure :production do
  db = URI.parse(ENV['DATABASE_URL'] || 'postgres:///localhost/database')

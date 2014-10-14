@@ -5,6 +5,7 @@ gem "sinatra"
 gem "activerecord"
 gem "sinatra-activerecord"
 gem "rake"
+gem "omniauth-twitter"
 
 group :development do
   gem "sqlite3"
