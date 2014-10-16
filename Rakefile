@@ -1,8 +1,8 @@
-require "./app"
+require "./app/controller/app"
 require "sinatra/activerecord/rake"
 
 task :seed do 
-  vanessa = User.create(name: "Vanessa", twitter: "vanessadeano")
+  taylor = User.create(name: "Taylor", twitter: "taylorswift13")
   bob = User.create(name: "Bob", twitter: "bobbertson")
   kesha = User.create(name: "Kesha", twitter: "ke$ha")
 
@@ -26,8 +26,8 @@ task :seed do
   activity_4.tags << tag_4
   activity_4.save
 
-  vanessa_activity_1 = UserActivity.create(activity_id: 1, user_id: 1, done: true)
-  vanessa_activity_2 = UserActivity.create(activity_id: 2, user_id: 1, done: false)
+  taylor_activity_1 = UserActivity.create(activity_id: 1, user_id: 1, done: true)
+  taylor_activity_2 = UserActivity.create(activity_id: 2, user_id: 1, done: false)
   bob_activity_1 = UserActivity.create(activity_id: 1, user_id: 2, done: true)
   bob_activity_2 = UserActivity.create(activity_id: 4, user_id: 2, done: true)
   bob_activity_3 = UserActivity.create(activity_id: 3, user_id: 2, done: false)

@@ -1,15 +1,30 @@
 require "sinatra/activerecord/rake"
 require 'pry'
 require 'omniauth-twitter'
+require 'bundler'
+Bundler.require
 
-require_relative "../lib/activity.rb"
-require_relative "../lib/activity_tag.rb"
-require_relative "../lib/user.rb"
-require_relative "../lib/user_activity.rb"
-require_relative "../lib/tag.rb"
+require_relative "../app/models/activity.rb"
+require_relative "../app/models/activity_tag.rb"
+require_relative "../app/models/user.rb"
+require_relative "../app/models/user_activity.rb"
+require_relative "../app/models/tag.rb"
 
 #database
-set :database, "sqlite3:///database.db"
+set :database, "sqlite3:///db/database.db"
+
+#configure
+configure do
+  set :root, File.dirname(__FILE__)
+  set :public_folder, 'public'
+  set :views, 'app/views'
+  
+  enable :sessions
+
+  use OmniAuth::Builder do
+    provider :twitter, 'NueTDLknNPKoaxcGMelzPwfbN', 'KqC9R0pQqYEzvIZW269qcG6t7MGIyLCE1owNALwKeNssyxiOGN'
+  end
+end
 
 configure :production do
  db = URI.parse(ENV['DATABASE_URL'] || 'postgres:///localhost/database')
