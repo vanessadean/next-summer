@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-sm-6">
+  <div class="col-sm-7">
     <h2>What's everyone been up to?</h2>
     <% @users.each do |user| %>
       <h3><a href="/users/<%= user.id %>"><strong><%= user.name %></strong></a></h3>
@@ -11,7 +11,7 @@
     <% end %>
   </div>
 
-  <div class="col-sm-6">
+  <div class="col-sm-5">
     <h2>What are you interested in?</h2> 
     <% @tags.each do |tag| %>
       <h3><a href="/interests/<%= tag.id %>"><%= tag.name %></a></h3>

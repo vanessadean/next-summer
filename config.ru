@@ -1,3 +1,3 @@
-require File.join(File.dirname(__FILE__), './app/controller/app.rb')
+Dir['./app/controllers/*.rb'].each { |file| require file }
 
 run App

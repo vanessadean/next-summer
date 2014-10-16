@@ -8,28 +8,58 @@
     <% if @activities_done %>
       <h2>This is what I did last summer</h2>
       <% @activities_done.each do |activity_done| %>
-        <h3><a href="<%= activity_done.activity.link %>" target="_blank"><%= activity_done.activity.description %></a></h3>
+        <h3><a href="<%= activity_done.activity.link %>" target="_blank"><%= activity_done.activity.description %></a>
+        <% if (@user.id != current_user.id) && (!current_user.activities.include?(activity_done.activity)) %>
+          <div style="display:inline-block; margin-left:20px;">
+            <form action="/users/activities" method="post">
+              <input type="hidden" name="activity_id" id="activity_id" value="<%= activity_done.activity.id %>"/>
+              <input type="hidden" name="current_user_id" id="current_user_id" value="<%= current_user.id %>"/>
+              <input type="hidden" name="done" id="done" value="0"/>
+              <input class="btn btn-sm btn-success" type="submit" value="Want TO DO!" id="activity_submit">
+            </form>
+          </div>
+          <div style="display:inline-block;">
+            <form action="/users/activities" method="post">
+              <input type="hidden" name="activity_id" id="activity_id" value="<%= activity_done.activity.id %>"/>
+              <input type="hidden" name="current_user_id" id="current_user_id" value="<%= current_user.id %>"/>
+              <input type="hidden" name="done" id="done" value="1"/>
+              <input class="btn btn-sm btn-warning" type="submit" value="DONE!" id="activity_submit">
+            </form>
+          </div>
+        <% end %></h3>
         <p><strong>Tags:</strong>
         <% activity_done.activity.tags.each do |tag| %>
           <a href="/interests/<%= tag.id %>">#<%= tag.name %></a>
         <% end %></p>
-        <% if @user.id != current_user.id %>
-
-        <% end %>
       <% end %>
     <% end %>
 
     <% if @activities_todo %>
       <h2>This is what I want to do next summer<h2>
       <% @activities_todo.each do |activity_todo| %>
-        <h3><a href="<%= activity_todo.activity.link %>" target="_blank"><%= activity_todo.activity.description %></a></h3>
+        <h3><a href="<%= activity_todo.activity.link %>" target="_blank"><%= activity_todo.activity.description %></a>
+        <% if (@user.id != current_user.id) && (!current_user.activities.include?(activity_todo.activity)) %>
+          <div style="display:inline-block; margin-left:20px;">
+            <form action="/users/activities" method="post">
+              <input type="hidden" name="activity_id" id="activity_id" value="<%= activity_todo.activity.id %>"/>
+              <input type="hidden" name="current_user_id" id="current_user_id" value="<%= current_user.id %>"/>
+              <input type="hidden" name="done" id="done" value="0"/>
+              <input class="btn btn-sm btn-success" type="submit" value="Want TO DO!" id="activity_submit">
+            </form>
+          </div>
+          <div style="display:inline-block;">
+            <form action="/users/activities" method="post">
+              <input type="hidden" name="activity_id" id="activity_id" value="<%= activity_todo.activity.id %>"/>
+              <input type="hidden" name="current_user_id" id="current_user_id" value="<%= current_user.id %>"/>
+              <input type="hidden" name="done" id="done" value="1"/>
+              <input class="btn btn-sm btn-warning" type="submit" value="DONE!" id="activity_submit">
+            </form>
+          </div>
+        <% end %></h3>
         <p><strong>Tags:</strong>
         <% activity_todo.activity.tags.each do |tag| %>
           <a href="/interests/<%= tag.id %>">#<%= tag.name %></a> 
         <% end %></p>
-        <% if @user.id != current_user.id %>
-        
-        <% end %>
       <% end %>
     <% end %>
 

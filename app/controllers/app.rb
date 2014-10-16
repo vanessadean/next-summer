@@ -13,13 +13,18 @@ class App < Sinatra::Application
   end
 
   before do
-    # we do not want to redirect to twitter when the path info starts with /auth/
-    pass if request.path_info =~ /^\/$/
-    pass if request.path_info =~ /^\/auth\//
+    # we do not want to redirect to twitter when the path info starts with /auth/ or is the home page '/'
+    pass if request.path_info =~ /^\/auth\/|^\/$/
 
     # /auth/twitter is captured by omniauth:
     # when the path info matches /auth/twitter, omniauth will redirect to twitter
     redirect to('/auth/twitter') unless signed_in
+  end
+
+  get '/' do
+    @users = User.all.sample(5).sort_by { |user| user.name }
+    @tags = Tag.all.sample(10).sort_by { |tag| tag.name }
+    erb :index
   end
 
   get '/auth/twitter/callback' do
@@ -57,26 +62,9 @@ class App < Sinatra::Application
     redirect to('/')
   end
 
-  get '/' do
-    @users = User.all.sample(5).sort_by { |user| user.name }
-    @tags = Tag.all.sample(10).sort_by { |tag| tag.name }
-    erb :index
-  end
-
   get '/users' do
     @users = User.all
     erb :users
-  end
-
-  post '/users/activity' do
-    @activity = Activity.new(description: params[:description])
-    @activity.link = params[:link]
-    @activity.add_existing_tags(params[:tags])
-    @activity.add_new_tags(params[:new_tags])
-    @activity.save
-    @user = User.find(params[:user_id])
-    UserActivity.create(user_id: @user.id, activity_id: @activity.id, done: params[:done])
-    redirect "/users/#{@user.id}"
   end
 
   get '/users/:id' do
@@ -87,9 +75,27 @@ class App < Sinatra::Application
     erb :user
   end
 
+  post '/users/activities' do
+    @activity = Activity.find(params[:activity_id])
+    @user = User.find(params[:current_user_id])
+    UserActivity.create(user_id: @user.id, activity_id: @activity.id, done: params[:done])
+    redirect "/users/#{@user.id}"
+  end
+
   get '/activities' do
     @activities = Activity.all
     erb :activities
+  end
+
+  post '/activities' do
+    @activity = Activity.new(description: params[:description])
+    @activity.link = params[:link]
+    @activity.add_existing_tags(params[:tags])
+    @activity.add_new_tags(params[:new_tags])
+    @activity.save
+    @user = User.find(params[:user_id])
+    UserActivity.create(user_id: @user.id, activity_id: @activity.id, done: params[:done])
+    redirect "/users/#{@user.id}"
   end
 
   get '/interests' do
@@ -100,6 +106,7 @@ class App < Sinatra::Application
   get '/interests/:id' do
     @interest = Tag.find(params[:id])
     @users = @interest.activities.collect { |activity| activity.users }.flatten.uniq
+    @interests = Tag.all
     erb :interest
   end
 end

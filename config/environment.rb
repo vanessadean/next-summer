@@ -4,11 +4,7 @@ require 'omniauth-twitter'
 require 'bundler'
 Bundler.require
 
-require_relative "../app/models/activity.rb"
-require_relative "../app/models/activity_tag.rb"
-require_relative "../app/models/user.rb"
-require_relative "../app/models/user_activity.rb"
-require_relative "../app/models/tag.rb"
+Dir['./app/models/*.rb'].each { |file| require file }
 
 #database
 set :database, "sqlite3:///db/database.db"
@@ -19,7 +15,9 @@ configure do
   set :public_folder, 'public'
   set :views, 'app/views'
   
-  enable :sessions
+  use Rack::Session::Cookie, :key => 'rack.session',
+                             :expire_after => 2592000, # In seconds (this is 30 days)
+                             :secret => 'fomo'
 
   use OmniAuth::Builder do
     provider :twitter, 'NueTDLknNPKoaxcGMelzPwfbN', 'KqC9R0pQqYEzvIZW269qcG6t7MGIyLCE1owNALwKeNssyxiOGN'
