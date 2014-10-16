@@ -1,0 +1,59 @@
+<div class="row"> 
+  <div class="col-sm-8"> 
+    <h1><%= @user.name %></h1>
+
+    <h3><a href="https://twitter.com/<%= @user.twitter %>" target="_blank">@<%= @user.twitter %></a></h3>
+    <p>See an activity on my list that you want to talk about? Tweet at me with #nextsummer.</p>
+
+    <% if @activities_done %>
+      <h2>This is what I did last summer</h2>
+      <% @activities_done.each do |activity_done| %>
+        <h3><a href="<%= activity_done.activity.link %>" target="_blank"><%= activity_done.activity.description %></a></h3>
+        <p><strong>Tags:</strong>
+        <% activity_done.activity.tags.each do |tag| %>
+          <a href="/interests/<%= tag.id %>">#<%= tag.name %></a>
+        <% end %></p>
+        <% if @user.id != current_user.id %>
+
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <% if @activities_todo %>
+      <h2>This is what I want to do next summer<h2>
+      <% @activities_todo.each do |activity_todo| %>
+        <h3><a href="<%= activity_todo.activity.link %>" target="_blank"><%= activity_todo.activity.description %></a></h3>
+        <p><strong>Tags:</strong>
+        <% activity_todo.activity.tags.each do |tag| %>
+          <a href="/interests/<%= tag.id %>">#<%= tag.name %></a> 
+        <% end %></p>
+        <% if @user.id != current_user.id %>
+        
+        <% end %>
+      <% end %>
+    <% end %>
+
+  </div>
+
+  <% if current_user.id == @user.id %>
+    <div class="col-sm-4">
+      <h2>Add a new activity!</h2>
+      <form action="/activities" method="post">
+        <p><strong>Activity name or description:</strong><br>
+        <input type="text" name="description" id="start" placeholder="Flatiron Summer Camp"/></p> 
+        <p><strong>Link to more info:</strong><br> 
+        <input type="text" name="link" id="start" placeholder="https://after.flatironschool.com/"/></p>
+        <p><input type="radio" name="done" value="1"> I've done this activity<br>
+        <input type="radio" name="done" value="0"> I want to do this activity<br></p>
+        <p><strong>Tags:</strong><br>
+        <% @tags.each do |tag| %>
+          <input type="checkbox" name="tags[<%= tag.name %>]" value="<%= tag.id %>"> <%= tag.name %><br> 
+        <% end %>
+        <p><strong>Add new tags (separate by commas):</strong><br>
+        <input type="text" name="new_tags" id="new_tag" placeholder="enter a new tag"/></p>
+        <input type="hidden" name="user_id" id="user_id" value="<%= @user.id %>"/></p>
+        <input class="btn btn-lg btn-primary" type="submit" id="activity_submit">
+      </form>
+    </div>
+  <% end %>
+</div>

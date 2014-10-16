@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-sm-6">
+    <h2>No twitter account?</h2>
+    <p>No problem. Sign up or sign in below.</p>
+
+    <h3>Sign Up<h3>
+    <form action="/sign-up" method="post">
+      <p><strong>Name:</strong><br>
+      <input type="text" name="name" id="name" placeholder="Taylor Swift"/></p> 
+      <p><strong>Email:</strong><br> 
+      <input type="text" name="email" id="email" placeholder="taytay@swift.com"/></p>
+      <input type="hidden" name="uid" id="uid" value="<%= rand(20000000) %>"/></p>
+      <input class="btn btn-lg btn-primary" type="submit" id="activity_submit">
+    </form>
+  </div>
+
+  <div class="col-sm-6">
+    <h3>Sign In<h3>
+    <form action="/sign-in" method="post"> 
+      <p><strong>Email:</strong><br> 
+      <input type="text" name="email" id="email" placeholder="taytay@swift.com"/></p>
+      <input class="btn btn-lg btn-primary" type="submit" id="activity_submit">
+    </form>
+  </div>
+</div>
