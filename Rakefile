@@ -1,10 +1,10 @@
-require "./app/controller/app"
+require "./app/controllers/app"
 require "sinatra/activerecord/rake"
 
 task :seed do 
-  taylor = User.create(name: "Taylor", twitter: "taylorswift13")
-  bob = User.create(name: "Bob", twitter: "bobbertson")
-  kesha = User.create(name: "Kesha", twitter: "ke$ha")
+  taylor = User.create(name: "Taylor", twitter: "taylorswift13", photo_url: "https://pbs.twimg.com/profile_images/505200807503867904/osJXmYRl_400x400.jpeg")
+  bob = User.create(name: "Bob", twitter: "bobbertson", photo_url: "https://pbs.twimg.com/profile_images/1152568778/123.png")
+  lorde = User.create(name: "Ella", twitter: "lordemusic", photo_url: "https://pbs.twimg.com/profile_images/511931852446523392/hE92_vji_400x400.jpeg")
 
   activity_1 = Activity.create(description: "Flatiron Summer Camp", link: "http://after.flatironschool.com")
   activity_2 = Activity.create(description: "Google Internship", link: "http://www.google.com")
@@ -31,9 +31,9 @@ task :seed do
   bob_activity_1 = UserActivity.create(activity_id: 1, user_id: 2, done: true)
   bob_activity_2 = UserActivity.create(activity_id: 4, user_id: 2, done: true)
   bob_activity_3 = UserActivity.create(activity_id: 3, user_id: 2, done: false)
-  kesha_activity_1 = UserActivity.create(activity_id: 1, user_id: 3, done: true)
-  kesha_activity_2 = UserActivity.create(activity_id: 3, user_id: 3, done: true)
-  kesha_activity_3 = UserActivity.create(activity_id: 2, user_id: 3, done: false)
+  lorde_activity_1 = UserActivity.create(activity_id: 1, user_id: 3, done: true)
+  lorde_activity_2 = UserActivity.create(activity_id: 3, user_id: 3, done: true)
+  lorde_activity_3 = UserActivity.create(activity_id: 2, user_id: 3, done: false)
 end
 
 

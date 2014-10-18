@@ -1,6 +1,6 @@
-require_relative "../../config/environment.rb"
+require_relative "../../config/environment"
 
-class App < Sinatra::Application
+class ApplicationController < Sinatra::Application
   helpers do
     # define a current_user method, so we can be sure if an user is authenticated
     def signed_in
@@ -29,11 +29,12 @@ class App < Sinatra::Application
 
   get '/auth/twitter/callback' do
     session[:uid] = env['omniauth.auth']['uid']
-    @twitter_handle = env['omniauth.auth']['info']['nickname']
-    @name = env['omniauth.auth']['info']['name']
+    @twitter_handle ||= env['omniauth.auth']['info']['nickname']
+    @name ||= env['omniauth.auth']['info']['name']
+    @photo_url = env['omniauth.auth']['info']['image'].gsub("normal", "400x400")
     @user = User.find_or_create_by(twitter: @twitter_handle, name: @name)
-    @user.uid = env['omniauth.auth']['uid']
-    # @user.image = env['omniauth.auth']['info']['image']
+    @user.uid ||= env['omniauth.auth']['uid']
+    @user.photo_url ||= @photo_url
     @user.save
     # this is the main endpoint to your application
     redirect to('/')
@@ -45,17 +46,17 @@ class App < Sinatra::Application
     erb :oauth_fail
   end
 
-  # post '/sign-up' do
-  #   session[:uid] = params[:uid]
-  #   @user = User.create(name: params[:name], email: params[:email], uid: params[:uid])
-  #   redirect to('/')
-  # end
+  post '/sign-up' do
+    session[:uid] = params[:uid]
+    @user = User.create(name: params[:name], email: params[:email], uid: params[:uid])
+    redirect to('/')
+  end
 
-  # post '/sign-in' do
-  #   @user = User.find_by(email: params[:user_email])
-  #   session[:uid] = @user.uid
-  #   redirect to('/')
-  # end
+  post '/sign-in' do
+    @user = User.find_by(email: params[:user_email])
+    session[:uid] = @user.uid
+    redirect to('/')
+  end
 
   get '/sign-out' do
     session[:uid] = nil
@@ -83,7 +84,7 @@ class App < Sinatra::Application
   end
 
   get '/activities' do
-    @activities = Activity.all
+    @interests = Tag.all
     erb :activities
   end
 

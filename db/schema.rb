@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141008021517) do
+ActiveRecord::Schema.define(version: 20141016212706) do
 
   create_table "activities", force: true do |t|
     t.string "description"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20141008021517) do
     t.string "twitter"
     t.string "email"
     t.string "uid"
+    t.string "photo_url"
   end
 
 end

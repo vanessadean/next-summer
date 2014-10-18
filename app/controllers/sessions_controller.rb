@@ -1,14 +1,14 @@
-require 'bundler'
-Bundler.require
-require_relative "../../config/environment.rb"
+require_relative "application_controller"
 
-class SessionsController < Sinatra::Application
+class SessionsController < ApplicationController
   get '/auth/twitter/callback' do
     session[:uid] = env['omniauth.auth']['uid']
-    @twitter_handle = env['omniauth.auth']['info']['nickname']
-    @name = env['omniauth.auth']['info']['name']
+    @twitter_handle ||= env['omniauth.auth']['info']['nickname']
+    @name ||= env['omniauth.auth']['info']['name']
+    @photo_url = env['omniauth.auth']['info']['image'].gsub("normal", "400x400")
     @user = User.find_or_create_by(twitter: @twitter_handle, name: @name)
-    @user.uid = env['omniauth.auth']['uid']
+    @user.uid ||= env['omniauth.auth']['uid']
+    @user.photo_url ||= @photo_url
     @user.save
     # this is the main endpoint to your application
     redirect to('/')
@@ -17,7 +17,7 @@ class SessionsController < Sinatra::Application
   get '/auth/failure' do
     # omniauth redirects to /auth/failure when it encounters a problem
     # so you can implement this as you please
-    erb :join
+    erb :oauth_fail
   end
 
   get '/sign-out' do

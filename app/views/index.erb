@@ -2,12 +2,19 @@
   <div class="col-sm-7">
     <h2>What's everyone been up to?</h2>
     <% @users.each do |user| %>
-      <h3><a href="/users/<%= user.id %>"><strong><%= user.name %></strong></a></h3>
-      <% user.user_activities.each do |user_activity| %>
-        <% if user_activity.done == true %>
-          <p><%= user_activity.activity.description %></p>
-        <% end %>
-      <% end %>
+      <div class="row">
+        <div class="profile_photo col-sm-3">
+          <img src="<%= user.photo_url %>">
+        </div>
+        <div class="col-sm-9">
+          <h3><a href="/users/<%= user.id %>"><strong><%= user.name %></strong></a></h3>
+          <% user.user_activities.each do |user_activity| %>
+            <% if user_activity.done == true %>
+              <p><%= user_activity.activity.description %></p>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
     <% end %>
   </div>
 

@@ -1,3 +1,7 @@
-Dir['./app/controllers/*.rb'].each { |file| require file }
+require './config/environment'
 
-run App
+use ActivitiesController
+use InterestsController
+use UsersController
+use SessionsController
+run ApplicationController

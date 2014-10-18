@@ -1,10 +1,8 @@
-require 'bundler'
-Bundler.require
-require_relative "../../config/environment.rb"
+require_relative "application_controller"
 
-class ActivitiesController < Sinatra::Application
+class ActivitiesController < ApplicationController
   get '/activities' do
-    @activities = Activity.all
+    @interests = Tag.all
     erb :activities
   end
 
