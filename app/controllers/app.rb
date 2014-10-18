@@ -1,6 +1,6 @@
 require_relative "../../config/environment"
 
-class ApplicationController < Sinatra::Application
+class App < Sinatra::Application
   helpers do
     # define a current_user method, so we can be sure if an user is authenticated
     def signed_in
@@ -22,8 +22,8 @@ class ApplicationController < Sinatra::Application
   end
 
   get '/' do
-    @users = User.all.sample(5).sort_by { |user| user.name }
-    @tags = Tag.all.sample(10).sort_by { |tag| tag.name }
+    @users = User.all.sample(4).sort_by { |user| user.name }
+    @tags = Tag.all.sample(8).sort_by { |tag| tag.name }
     erb :index
   end
 
@@ -44,18 +44,6 @@ class ApplicationController < Sinatra::Application
     # omniauth redirects to /auth/failure when it encounters a problem
     # so you can implement this as you please
     erb :oauth_fail
-  end
-
-  post '/sign-up' do
-    session[:uid] = params[:uid]
-    @user = User.create(name: params[:name], email: params[:email], uid: params[:uid])
-    redirect to('/')
-  end
-
-  post '/sign-in' do
-    @user = User.find_by(email: params[:user_email])
-    session[:uid] = @user.uid
-    redirect to('/')
   end
 
   get '/sign-out' do
@@ -84,7 +72,7 @@ class ApplicationController < Sinatra::Application
   end
 
   get '/activities' do
-    @interests = Tag.all
+    @interests = Tag.all.sort_by { |tag| tag.name }
     erb :activities
   end
 
@@ -100,14 +88,14 @@ class ApplicationController < Sinatra::Application
   end
 
   get '/interests' do
-    @interests = Tag.all
+    @interests = Tag.all.sort_by { |tag| tag.name }
     erb :interests
   end
 
   get '/interests/:id' do
     @interest = Tag.find(params[:id])
     @users = @interest.activities.collect { |activity| activity.users }.flatten.uniq
-    @interests = Tag.all
+    @interests = Tag.all.sort_by { |tag| tag.name }
     erb :interest
   end
 end

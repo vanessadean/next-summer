@@ -5,7 +5,6 @@ require 'bundler'
 Bundler.require
 
 Dir['./app/models/*.rb'].each { |file| require file }
-Dir['./app/controllers/*.rb'].each { |file| require file }
 
 #database
 set :database, "sqlite3:///db/database.db"

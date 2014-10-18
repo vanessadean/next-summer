@@ -1,12 +1,16 @@
 <div class="row"> 
-  <div class="col-sm-8"> 
-    <div class="profile_photo">
-      <img src="<%= @user.photo_url %>">
+  <div class="col-md-7 col-xs-12"> 
+    <div class="row">
+      <div class="col-md-3 profile_photo">
+        <img src="<%= @user.photo_url %>">
+      </div>
+      <div class="col-md-7">
+        <h1><%= @user.name %></h1>
+        <h3><a href="https://twitter.com/<%= @user.twitter %>" target="_blank">@<%= @user.twitter %></a></h3>
+        <p>See an activity on my list that you want to talk about? Tweet at me with #nextsummer.</p>
+      </div>
     </div>
-    <h1><%= @user.name %></h1>
-    <h3><a href="https://twitter.com/<%= @user.twitter %>" target="_blank">@<%= @user.twitter %></a></h3>
-    <p>See an activity on my list that you want to talk about? Tweet at me with #nextsummer.</p>
-
+ 
     <% if @activities_done %>
       <h2>This is what I did last summer</h2>
       <% @activities_done.each do |activity_done| %>
@@ -64,11 +68,11 @@
         <% end %></p>
       <% end %>
     <% end %>
-
   </div>
 
-  <% if current_user.id == @user.id %>
-    <div class="col-sm-4">
+  <div class="col-md-5 col-xs-12">
+    <% if current_user.id == @user.id %>
+      <div class="border-box">
       <h2>Add a new activity!</h2>
       <form action="/activities" method="post">
         <p><strong>Activity name or description:</strong><br>
@@ -86,6 +90,7 @@
         <input type="hidden" name="user_id" id="user_id" value="<%= @user.id %>"/></p>
         <input class="btn btn-lg btn-primary" type="submit" id="activity_submit">
       </form>
-    </div>
-  <% end %>
+      </div>
+    <% end %>
+  </div>
 </div>

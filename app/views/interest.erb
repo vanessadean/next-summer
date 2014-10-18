@@ -31,7 +31,7 @@
     <% end %>
   </div>
 
-  <div class="col-sm-5">
+  <div class="col-sm-4 col-sm-offset-1 border-box">
     <h2>What else are you </br>interested in?</h2>
     <% @interests.each do |tag| %>
       <h3><a href="/interests/<%= tag.id %>"><%= tag.name %></a></h3>

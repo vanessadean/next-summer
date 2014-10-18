@@ -1,7 +1,3 @@
-require './config/environment'
+require './app/controllers/app'
 
-use ActivitiesController
-use InterestsController
-use UsersController
-use SessionsController
-run ApplicationController
+run App
