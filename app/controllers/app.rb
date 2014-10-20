@@ -43,7 +43,6 @@ class App < Sinatra::Application
   get '/auth/failure' do
     # omniauth redirects to /auth/failure when it encounters a problem
     # so you can implement this as you please
-    session[:uid] = nil
     redirect to('/')
   end
 
