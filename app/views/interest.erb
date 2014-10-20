@@ -27,7 +27,9 @@
 
     <h3>Check out who else is interested in <%= @interest.name %></h3>
     <% @users.each do |user| %>
-      <h4><a href="/users/<%= user.id %>"><%= user.name %></a></h4>
+      <% unless user == current_user %>
+        <h4><a href="/users/<%= user.id %>"><%= user.name %></a></h4>
+      <% end %>
     <% end %>
   </div>
 

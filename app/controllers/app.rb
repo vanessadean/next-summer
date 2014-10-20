@@ -87,6 +87,13 @@ class App < Sinatra::Application
     redirect "/users/#{@user.id}"
   end
 
+  post '/activities/remove' do
+    @user = User.find(params[:current_user_id])
+    @user_activity = UserActivity.find(params[:user_activity_id])
+    @user_activity.destroy
+    redirect "/users/#{@user.id}"
+  end
+
   get '/interests' do
     @interests = Tag.all.sort_by { |tag| tag.name }
     erb :interests
