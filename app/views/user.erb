@@ -18,18 +18,18 @@
         <% if (@user.id != current_user.id) && (!current_user.activities.include?(activity_done.activity)) %>
           <div style="display:inline-block; margin-left:15px;">
             <form action="/users/activities" method="post">
-              <input type="hidden" name="activity_id" id="activity_id" value="<%= activity_done.activity.id %>"/>
-              <input type="hidden" name="current_user_id" id="current_user_id" value="<%= current_user.id %>"/>
-              <input type="hidden" name="done" id="done" value="0"/>
-              <input class="btn btn-sm btn-success" type="submit" value="Want TO DO!" id="activity_submit">
+              <input type="hidden" name="activity_id" value="<%= activity_done.activity.id %>"/>
+              <input type="hidden" name="current_user_id" value="<%= current_user.id %>"/>
+              <input type="hidden" name="done" value="0"/>
+              <input class="btn btn-sm btn-success" type="submit" value="Want TO DO!">
             </form>
           </div>
           <div style="display:inline-block; margin-left:5px;">
             <form action="/users/activities" method="post">
-              <input type="hidden" name="activity_id" id="activity_id" value="<%= activity_done.activity.id %>"/>
-              <input type="hidden" name="current_user_id" id="current_user_id" value="<%= current_user.id %>"/>
-              <input type="hidden" name="done" id="done" value="1"/>
-              <input class="btn btn-sm btn-info" type="submit" value="DONE!" id="activity_submit">
+              <input type="hidden" name="activity_id" value="<%= activity_done.activity.id %>"/>
+              <input type="hidden" name="current_user_id" value="<%= current_user.id %>"/>
+              <input type="hidden" name="done" value="1"/>
+              <input class="btn btn-sm btn-info" type="submit" value="DONE!">
             </form>
           </div>
         <% elsif @user.id == current_user.id %>
@@ -38,7 +38,7 @@
               <input type="hidden" name="user_activity_id" id="user_activity_id" value="<%= activity_done.id %>"/>
               <input type="hidden" name="current_user_id" id="current_user_id" value="<%= current_user.id %>"/>
               <input type="hidden" name="done" id="done" value="1"/>
-              <input class="btn btn-sm btn-warning" type="submit" value="Remove" id="activity_submit">
+              <input class="btn btn-sm btn-warning" type="submit" value="Remove" >
             </form>
           </div>
         <% end %></h3>
@@ -56,35 +56,34 @@
         <% if (@user.id != current_user.id) && (!current_user.activities.include?(activity_todo.activity)) %>
           <div style="display:inline-block; margin-left:15px;">
             <form action="/users/activities" method="post">
-              <input type="hidden" name="activity_id" id="activity_id" value="<%= activity_todo.activity.id %>"/>
-              <input type="hidden" name="current_user_id" id="current_user_id" value="<%= current_user.id %>"/>
-              <input type="hidden" name="done" id="done" value="0"/>
-              <input class="btn btn-sm btn-success" type="submit" value="Want TO DO!" id="activity_submit">
+              <input type="hidden" name="activity_id" value="<%= activity_todo.activity.id %>"/>
+              <input type="hidden" name="current_user_id" value="<%= current_user.id %>"/>
+              <input type="hidden" name="done" value="0"/>
+              <input class="btn btn-sm btn-success" type="submit" value="Want TO DO!" >
             </form>
           </div>
           <div style="display:inline-block; margin-left:5px;">
-            <form action="/users/activities" method="post">
-              <input type="hidden" name="activity_id" id="activity_id" value="<%= activity_todo.activity.id %>"/>
-              <input type="hidden" name="current_user_id" id="current_user_id" value="<%= current_user.id %>"/>
-              <input type="hidden" name="done" id="done" value="1"/>
-              <input class="btn btn-sm btn-info" type="submit" value="DONE!" id="activity_submit">
+            <form action="/activities/done" method="post">
+              <input type="hidden" name="user_activity_id" value="<%= activity_todo.id %>"/>
+              <input type="hidden" name="current_user_id" value="<%= current_user.id %>"/>
+              <input class="btn btn-sm btn-info" type="submit" value="DONE!" >
             </form>
           </div>
         <% elsif @user.id == current_user.id %>
           <div style="display:inline-block; margin-left:15px;">
-            <form action="/users/activities" method="post">
-              <input type="hidden" name="activity_id" id="activity_id" value="<%= activity_todo.id %>"/>
-              <input type="hidden" name="current_user_id" id="current_user_id" value="<%= current_user.id %>"/>
-              <input type="hidden" name="done" id="done" value="1"/>
-              <input class="btn btn-sm btn-info" type="submit" value="DONE!" id="activity_submit">
+            <form action="/activities/done" method="post">
+              <input type="hidden" name="user_activity_id" value="<%= activity_todo.id %>"/>
+              <input type="hidden" name="current_user_id" value="<%= current_user.id %>"/>
+              <input type="hidden" name="done" value="1"/>
+              <input class="btn btn-sm btn-info" type="submit" value="DONE!" >
             </form>
           </div>
           <div style="display:inline-block; margin-left:5px;">
             <form action="/activities/remove" method="post">
-              <input type="hidden" name="user_activity_id" id="user_activity_id" value="<%= activity_todo.id %>"/>
-              <input type="hidden" name="current_user_id" id="current_user_id" value="<%= current_user.id %>"/>
-              <input type="hidden" name="done" id="done" value="1"/>
-              <input class="btn btn-sm btn-warning" type="submit" value="Remove" id="activity_submit">
+              <input type="hidden" name="user_activity_id" value="<%= activity_todo.id %>"/>
+              <input type="hidden" name="current_user_id" value="<%= current_user.id %>"/>
+              <input type="hidden" name="done" value="1"/>
+              <input class="btn btn-sm btn-warning" type="submit" value="Remove">
             </form>
           </div>
         <% end %></h3>
