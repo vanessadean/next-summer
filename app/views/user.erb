@@ -16,7 +16,7 @@
       <% @activities_done.each do |activity_done| %>
         <h3><a href="<%= activity_done.activity.link %>" target="_blank"><%= activity_done.activity.description %></a>
         <% if (@user.id != current_user.id) && (!current_user.activities.include?(activity_done.activity)) %>
-          <div style="display:inline-block; margin-left:15px;">
+          <div class="interest-button left-button">
             <form action="/users/activities" method="post">
               <input type="hidden" name="activity_id" value="<%= activity_done.activity.id %>"/>
               <input type="hidden" name="current_user_id" value="<%= current_user.id %>"/>
@@ -24,7 +24,7 @@
               <input class="btn btn-sm btn-success" type="submit" value="Want TO DO!">
             </form>
           </div>
-          <div style="display:inline-block; margin-left:5px;">
+          <div class="interest-button right-button">
             <form action="/users/activities" method="post">
               <input type="hidden" name="activity_id" value="<%= activity_done.activity.id %>"/>
               <input type="hidden" name="current_user_id" value="<%= current_user.id %>"/>
@@ -33,7 +33,7 @@
             </form>
           </div>
         <% elsif @user.id == current_user.id %>
-          <div style="display:inline-block; margin-left:15px;">
+          <div class="interest-button left-button">
             <form action="/activities/remove" method="post">
               <input type="hidden" name="user_activity_id" id="user_activity_id" value="<%= activity_done.id %>"/>
               <input type="hidden" name="current_user_id" id="current_user_id" value="<%= current_user.id %>"/>
@@ -54,7 +54,7 @@
       <% @activities_todo.each do |activity_todo| %>
         <h3><a href="<%= activity_todo.activity.link %>" target="_blank"><%= activity_todo.activity.description %></a>
         <% if (@user.id != current_user.id) && (!current_user.activities.include?(activity_todo.activity)) %>
-          <div style="display:inline-block; margin-left:15px;">
+          <div class="interest-button left-button">
             <form action="/users/activities" method="post">
               <input type="hidden" name="activity_id" value="<%= activity_todo.activity.id %>"/>
               <input type="hidden" name="current_user_id" value="<%= current_user.id %>"/>
@@ -62,7 +62,7 @@
               <input class="btn btn-sm btn-success" type="submit" value="Want TO DO!" >
             </form>
           </div>
-          <div style="display:inline-block; margin-left:5px;">
+          <div class="interest-button right-button">
             <form action="/activities/done" method="post">
               <input type="hidden" name="user_activity_id" value="<%= activity_todo.id %>"/>
               <input type="hidden" name="current_user_id" value="<%= current_user.id %>"/>
@@ -70,7 +70,7 @@
             </form>
           </div>
         <% elsif @user.id == current_user.id %>
-          <div style="display:inline-block; margin-left:15px;">
+          <div class="interest-button left-button">
             <form action="/activities/done" method="post">
               <input type="hidden" name="user_activity_id" value="<%= activity_todo.id %>"/>
               <input type="hidden" name="current_user_id" value="<%= current_user.id %>"/>
@@ -78,7 +78,7 @@
               <input class="btn btn-sm btn-info" type="submit" value="DONE!" >
             </form>
           </div>
-          <div style="display:inline-block; margin-left:5px;">
+          <div class="interest-button right-button">
             <form action="/activities/remove" method="post">
               <input type="hidden" name="user_activity_id" value="<%= activity_todo.id %>"/>
               <input type="hidden" name="current_user_id" value="<%= current_user.id %>"/>

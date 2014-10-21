@@ -6,19 +6,19 @@
     <% @interest.activities.each do |activity| %>
       <h4><a href="<%= activity.link %>" target="_blank"><%= activity.description %></a>
         <% if !current_user.activities.include?(activity) %>
-          <div style="display:inline-block; margin-left:20px;">
+          <div class="interest-button left-button">
             <form action="/users/activities" method="post">
-              <input type="hidden" name="activity_id" id="activity_id" value="<%= activity.id %>"/>
-              <input type="hidden" name="current_user_id" id="current_user_id" value="<%= current_user.id %>"/>
-              <input type="hidden" name="done" id="done" value="0"/>
+              <input type="hidden" name="activity_id" value="<%= activity.id %>"/>
+              <input type="hidden" name="current_user_id" value="<%= current_user.id %>"/>
+              <input type="hidden" name="done" value="0"/>
               <input class="btn btn-sm btn-success" type="submit" value="Want TO DO!" id="activity_submit">
             </form>
           </div>
-          <div style="display:inline-block;">
+          <div class="interest-button right-button">
             <form action="/users/activities" method="post">
-              <input type="hidden" name="activity_id" id="activity_id" value="<%= activity.id %>"/>
-              <input type="hidden" name="current_user_id" id="current_user_id" value="<%= current_user.id %>"/>
-              <input type="hidden" name="done" id="done" value="1"/>
+              <input type="hidden" name="activity_id" value="<%= activity.id %>"/>
+              <input type="hidden" name="current_user_id" value="<%= current_user.id %>"/>
+              <input type="hidden" name="done" value="1"/>
               <input class="btn btn-sm btn-info" type="submit" value="DONE!" id="activity_submit">
             </form>
           </div>
