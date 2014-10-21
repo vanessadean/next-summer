@@ -17,7 +17,7 @@
         <h3><a href="<%= activity_done.activity.link %>" target="_blank"><%= activity_done.activity.description %></a>
         <% if (@user.id != current_user.id) && (!current_user.activities.include?(activity_done.activity)) %>
           <div class="interest-button left-button">
-            <form action="/users/activities" method="post">
+            <form action="/activities" method="post">
               <input type="hidden" name="activity_id" value="<%= activity_done.activity.id %>"/>
               <input type="hidden" name="current_user_id" value="<%= current_user.id %>"/>
               <input type="hidden" name="done" value="0"/>
@@ -25,7 +25,7 @@
             </form>
           </div>
           <div class="interest-button right-button">
-            <form action="/users/activities" method="post">
+            <form action="/activities" method="post">
               <input type="hidden" name="activity_id" value="<%= activity_done.activity.id %>"/>
               <input type="hidden" name="current_user_id" value="<%= current_user.id %>"/>
               <input type="hidden" name="done" value="1"/>
@@ -55,7 +55,7 @@
         <h3><a href="<%= activity_todo.activity.link %>" target="_blank"><%= activity_todo.activity.description %></a>
         <% if (@user.id != current_user.id) && (!current_user.activities.include?(activity_todo.activity)) %>
           <div class="interest-button left-button">
-            <form action="/users/activities" method="post">
+            <form action="/activities" method="post">
               <input type="hidden" name="activity_id" value="<%= activity_todo.activity.id %>"/>
               <input type="hidden" name="current_user_id" value="<%= current_user.id %>"/>
               <input type="hidden" name="done" value="0"/>
@@ -99,7 +99,7 @@
     <% if current_user.id == @user.id %>
       <div class="border-box">
       <h2>Add a new activity!</h2>
-      <form action="/activities" method="post">
+      <form action="/activities/new" method="post">
         <p><strong>Activity name or description:</strong><br>
         <input type="text" name="description" id="start" placeholder="Flatiron Summer Camp"/></p> 
         <p><strong>Link to more info:</strong><br> 

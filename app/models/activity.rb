@@ -7,8 +7,10 @@ class Activity < ActiveRecord::Base
   has_many :users, :through => :user_activities
 
   def add_existing_tags(tags)
-    tags.each do |key, value|
-      self.tags << Tag.find(value)
+    if tags
+      tags.each do |key, value|
+        self.tags << Tag.find(value)
+      end
     end
   end
 
