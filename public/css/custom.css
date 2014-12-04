@@ -1,11 +1,13 @@
-@import url(http://fonts.googleapis.com/css?family=McLaren);
+/*@import url(http://fonts.googleapis.com/css?family=McLaren);
 @import url(http://fonts.googleapis.com/css?family=Poiret+One);
-@import url(http://fonts.googleapis.com/css?family=Skranji:400,700);
+@import url(http://fonts.googleapis.com/css?family=Skranji:400,700);*/
+
+@font-face { font-family: "LemonMilk"; src: url("../lemon_milk/LemonMilk.otf"); } 
 
 .navbar {
   background-color: #e7e7e7;
   height: 75px;
-  font-family: Mclaren;
+  font-family: "LemonMilk";
 }
 a.navbar-brand {
   font-size: 30px;
@@ -24,7 +26,7 @@ a.navbar-brand {
   margin-top: 20px;
 }
 h1, h2, h3 {
-  font-family: Mclaren;
+  font-family: "LemonMilk";
 }
 .page-body{
   margin-top: 85px;
