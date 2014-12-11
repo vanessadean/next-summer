@@ -7,7 +7,7 @@
       <h4><a href="<%= activity.link %>" target="_blank"><%= activity.description %></a>
         <% if !current_user.activities.include?(activity) %>
           <div class="interest-button left-button">
-            <form action="/users/activities" method="post">
+            <form action="/activities" method="post">
               <input type="hidden" name="activity_id" value="<%= activity.id %>"/>
               <input type="hidden" name="current_user_id" value="<%= current_user.id %>"/>
               <input type="hidden" name="done" value="0"/>
@@ -15,7 +15,7 @@
             </form>
           </div>
           <div class="interest-button right-button">
-            <form action="/users/activities" method="post">
+            <form action="/activities" method="post">
               <input type="hidden" name="activity_id" value="<%= activity.id %>"/>
               <input type="hidden" name="current_user_id" value="<%= current_user.id %>"/>
               <input type="hidden" name="done" value="1"/>

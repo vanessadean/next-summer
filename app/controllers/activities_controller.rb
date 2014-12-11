@@ -38,4 +38,13 @@ class ActivitiesController < App
     @user_activity.save
     redirect "/users/#{@user.id}"
   end
+
+  post '/delete' do
+    @activity = Activity.find(params[:activity_id])
+    tags = @activity.tags
+    tags.each { |tag| tag.destroy if tag.activities.length == 1 } 
+    @activity.destroy
+    # tags.each { |tag| tag.destroy if tag.activities.empty? } 
+    redirect "/activities"
+  end
 end
