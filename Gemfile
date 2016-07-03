@@ -6,11 +6,11 @@ gem "activerecord"
 gem "sinatra-activerecord"
 gem "rake"
 gem "omniauth-twitter"
+gem "tux"
 
 group :development do
   gem "sqlite3"
   gem "shotgun"
-  gem "tux"
 end
 
 group :production do
