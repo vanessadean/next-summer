@@ -2,7 +2,7 @@
 @import url(http://fonts.googleapis.com/css?family=Poiret+One);
 @import url(http://fonts.googleapis.com/css?family=Skranji:400,700);*/
 
-@font-face { font-family: "LemonMilk"; src: url("../lemon_milk/LemonMilk.otf"); } 
+@font-face { font-family: "LemonMilk"; src: url("../lemon_milk/LemonMilk.otf"); }
 
 .navbar {
   background-color: #e7e7e7;
@@ -46,7 +46,7 @@ h1, h2, h3 {
   border-radius: 10px;
 }
 .interest-button {
-  display:inline-block; 
+  display:inline-block;
 }
 .left-button {
   margin-left:15px;
