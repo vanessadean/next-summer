@@ -1,18 +1,17 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
+ruby '2.4.0'
+
+gem 'activerecord'
+gem 'dotenv'
+gem 'omniauth-twitter'
+gem 'pg'
 gem 'pry'
-gem "sinatra"
-gem "activerecord"
-gem "sinatra-activerecord"
-gem "rake"
-gem "omniauth-twitter"
-gem "tux"
+gem 'rake'
+gem 'sinatra'
+gem 'sinatra-activerecord'
+gem 'tux'
 
 group :development do
-  gem "sqlite3"
-  gem "shotgun"
-end
-
-group :production do
- gem 'pg'
+  gem 'shotgun'
 end

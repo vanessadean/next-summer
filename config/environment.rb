@@ -1,40 +1,34 @@
-require "sinatra/activerecord/rake"
+require 'sinatra/activerecord/rake'
 require 'pry'
 require 'omniauth-twitter'
 require 'bundler'
 Bundler.require
 
+Dotenv.load
+
 Dir['./app/models/*.rb'].each { |file| require file }
 
-#database
-configure :development do
-  set :database, "sqlite3:///db/database.db"
-end
-
-#configure
 configure do
   set :root, File.dirname(__FILE__)
   set :public_folder, 'public'
   set :views, 'app/views'
-  
-  use Rack::Session::Cookie, :key => 'rack.session',
-                             :expire_after => 2592000, # In seconds (this is 30 days)
-                             :secret => 'fomo'
+
+  use Rack::Session::Cookie, key: 'rack.session',
+                             expire_after: 86400, # In seconds (this is 1 day)
+                             secret: ENV['SECRET']
 
   use OmniAuth::Builder do
-    provider :twitter, 'NueTDLknNPKoaxcGMelzPwfbN', 'KqC9R0pQqYEzvIZW269qcG6t7MGIyLCE1owNALwKeNssyxiOGN'
+    provider :twitter, ENV['API_KEY'], ENV['API_SECRET_KEY']
   end
-end
 
-configure :production do
- db = URI.parse(ENV['DATABASE_URL'] || 'postgres:///localhost/database')
+  db = URI.parse(ENV['DATABASE_URL'] || 'postgres:///localhost/database')
 
- ActiveRecord::Base.establish_connection(
-   :adapter  => db.scheme == 'postgres' ? 'postgresql' : db.scheme,
-   :host     => db.host,
-   :username => db.user,
-   :password => db.password,
-   :database => db.path[1..-1],
-   :encoding => 'utf8'
- )
+  ActiveRecord::Base.establish_connection(
+    adapter: db.scheme == 'postgres' ? 'postgresql' : db.scheme,
+    host: db.host,
+    username: db.user,
+    password: db.password,
+    database: db.path[1..-1],
+    encoding: 'utf8'
+  )
 end
