@@ -1,4 +1,4 @@
-class CreateActivityTags < ActiveRecord::Migration
+class CreateActivityTags < ActiveRecord::Migration[5.0]
   def up
     create_table :activity_tags do |t|
       t.integer :tag_id

@@ -1,4 +1,4 @@
-class AddPhotoToUser < ActiveRecord::Migration
+class AddPhotoToUser < ActiveRecord::Migration[5.0]
   def up
     add_column :users, :photo_url, :string
   end

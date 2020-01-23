@@ -1,4 +1,4 @@
-require 'sinatra/activerecord/rake'
+require 'sinatra/activerecord'
 require 'pry'
 require 'omniauth-twitter'
 require 'bundler'

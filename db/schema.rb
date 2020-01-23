@@ -10,29 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141016212706) do
+ActiveRecord::Schema.define(version: 2014_10_16_212706) do
 
-  create_table "activities", force: true do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "activities", id: :serial, force: :cascade do |t|
     t.string "description"
     t.string "link"
   end
 
-  create_table "activity_tags", force: true do |t|
+  create_table "activity_tags", id: :serial, force: :cascade do |t|
     t.integer "tag_id"
     t.integer "activity_id"
   end
 
-  create_table "tags", force: true do |t|
+  create_table "tags", id: :serial, force: :cascade do |t|
     t.string "name"
   end
 
-  create_table "user_activities", force: true do |t|
+  create_table "user_activities", id: :serial, force: :cascade do |t|
     t.integer "user_id"
     t.integer "activity_id"
     t.boolean "done"
   end
 
-  create_table "users", force: true do |t|
+  create_table "users", id: :serial, force: :cascade do |t|
     t.string "name"
     t.string "twitter"
     t.string "email"
