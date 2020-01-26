@@ -8,8 +8,8 @@ class InterestsController < App
 
   get '/interests/:id' do
     @interest = Tag.find(params[:id])
-    @users = @interest.activities.collect { |activity| activity.users }.flatten.uniq
-    @interests = Tag.all.sort_by { |tag| tag.name }
+    @users = @interest.activities.collect(&:users).flatten.uniq
+    @interests = Tag.all.sort_by(&:name)
     erb :interest
   end
 end

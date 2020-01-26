@@ -1,35 +1,41 @@
-<div class="row"> 
+<div class="row">
   <div class="col-sm-7">
-    <h2><%= @interest.name %></h2> 
-  
+    <h2><%= @interest.name %></h2>
+
     <h3>Check out these activities</h3>
     <% @interest.activities.each do |activity| %>
       <h4><a href="<%= activity.link %>" target="_blank"><%= activity.description %></a>
-        <% if !current_user.activities.include?(activity) %>
-          <div class="interest-button left-button">
-            <form action="/activities" method="post">
-              <input type="hidden" name="activity_id" value="<%= activity.id %>"/>
-              <input type="hidden" name="current_user_id" value="<%= current_user.id %>"/>
-              <input type="hidden" name="done" value="0"/>
-              <input class="btn btn-sm btn-success" type="submit" value="Want TO DO!" id="activity_submit">
-            </form>
-          </div>
-          <div class="interest-button right-button">
-            <form action="/activities" method="post">
-              <input type="hidden" name="activity_id" value="<%= activity.id %>"/>
-              <input type="hidden" name="current_user_id" value="<%= current_user.id %>"/>
-              <input type="hidden" name="done" value="1"/>
-              <input class="btn btn-sm btn-info" type="submit" value="DONE!" id="activity_submit">
-            </form>
-          </div>
-        <% end %></h4>
+        <% if current_user.present? %>
+          <% if !current_user.activities.include?(activity) %>
+            <div class="interest-button left-button">
+              <form action="/activities" method="post">
+                <input type="hidden" name="activity_id" value="<%= activity.id %>"/>
+                <input type="hidden" name="current_user_id" value="<%= current_user.id %>"/>
+                <input type="hidden" name="done" value="0"/>
+                <input class="btn btn-sm btn-success" type="submit" value="Want TO DO!" id="activity_submit">
+              </form>
+            </div>
+            <div class="interest-button right-button">
+              <form action="/activities" method="post">
+                <input type="hidden" name="activity_id" value="<%= activity.id %>"/>
+                <input type="hidden" name="current_user_id" value="<%= current_user.id %>"/>
+                <input type="hidden" name="done" value="1"/>
+                <input class="btn btn-sm btn-info" type="submit" value="DONE!" id="activity_submit">
+              </form>
+            </div>
+          <% end %></h4>
+        <% end %>
     <% end %>
 
     <h3>Check out who else is interested in <%= @interest.name %></h3>
-    <% @users.each do |user| %>
-      <% unless user == current_user %>
-        <h4><a href="/users/<%= user.id %>"><%= user.name %></a></h4>
+    <% if current_user.present? %>
+      <% @users.each do |user| %>
+        <% unless user == current_user %>
+          <h4><a href="/users/<%= user.id %>"><%= user.name %></a></h4>
+        <% end %>
       <% end %>
+    <% else %>
+      <a href="/auth/twitter">Sign In to See</a>
     <% end %>
   </div>
 
@@ -39,4 +45,4 @@
       <h3><a href="/interests/<%= tag.id %>"><%= tag.name %></a></h3>
     <% end %>
   </div>
-</div> 
+</div>

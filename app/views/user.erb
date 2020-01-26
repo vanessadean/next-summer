@@ -1,5 +1,5 @@
-<div class="row"> 
-  <div class="col-md-7 col-xs-12"> 
+<div class="row">
+  <div class="col-md-7 col-xs-12">
     <div class="row">
       <div class="col-md-3 profile_photo">
         <img src="<%= @user.photo_url %>">
@@ -10,7 +10,7 @@
         <p>See an activity on my list that you want to talk about? Tweet at me with #nextsummer.</p>
       </div>
     </div>
- 
+
     <% if @activities_done %>
       <h2>This is what I did last summer</h2>
       <% @activities_done.each do |activity_done| %>
@@ -89,7 +89,7 @@
         <% end %></h3>
         <p><strong>Tags:</strong>
         <% activity_todo.activity.tags.each do |tag| %>
-          <a href="/interests/<%= tag.id %>">#<%= tag.name %></a> 
+          <a href="/interests/<%= tag.id %>">#<%= tag.name %></a>
         <% end %></p>
       <% end %>
     <% end %>
@@ -101,14 +101,14 @@
       <h2>Add a new activity!</h2>
       <form action="/activities/new" method="post">
         <p><strong>Activity name or description:</strong><br>
-        <input type="text" name="description" id="start" placeholder="Flatiron Summer Camp"/></p> 
-        <p><strong>Link to more info:</strong><br> 
+        <input type="text" name="description" id="start" placeholder="Flatiron Summer Camp"/></p>
+        <p><strong>Link to more info:</strong><br>
         <input type="text" name="link" id="start" placeholder="https://after.flatironschool.com/"/></p>
         <p><input type="radio" name="done" value="1"> I've done this activity<br>
         <input type="radio" name="done" value="0"> I want to do this activity<br></p>
         <p><strong>Tags:</strong><br>
         <% @tags.each do |tag| %>
-          <input type="checkbox" name="tags[<%= tag.name %>]" value="<%= tag.id %>"> <%= tag.name %><br> 
+          <input type="checkbox" name="tags[]" value="<%= tag.id %>"> <%= tag.name %><br>
         <% end %>
         <p><strong>Add new tags (separate by commas):</strong><br>
         <input type="text" name="new_tags" id="new_tag" placeholder="enter a new tag"/></p>

@@ -3,7 +3,7 @@
   <h3><%= tag.name %></h3>
   <% tag.activities.each do |activity| %>
     <h4><a href="<%= activity.link %>"><%= activity.description %></a>
-    <% if current_user.twitter == "vanessadeano" %>
+    <% if current_user&.twitter == "vanessadeano" %>
       <div class="interest-button left-button">
         <form action="/delete" method="post">
           <input type="hidden" name="activity_id" value="<%= activity.id %>"/>
