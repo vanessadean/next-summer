@@ -22,8 +22,8 @@ class App < Sinatra::Application
   end
 
   get '/' do
-    @users = User.all.sample(4).sort_by(&:name)
-    @tags = Tag.all.sample(8).sort_by(&:name)
+    @activities = Activity.order('RANDOM()').limit(8).sort_by(&:description)
+    @tags = Tag.order('RANDOM()').limit(8).sort_by(&:name)
     erb :index
   end
 

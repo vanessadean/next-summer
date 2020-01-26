@@ -1,29 +1,24 @@
 <div class="row">
-  <div class="col-md-8 col-sm-7 col-xs-12 border-box">
-    <h2>What's everyone been up to?</h2>
-    <% @users.each do |user| %>
-      <div class="col-md-6 col-xs-12">
-        <div class="row">
-          <div class="profile_photo col-md-4 col-sm-4 col-xs-5">
-            <img src="<%= user.photo_url %>">
-          </div>
-          <div class="col-md-7 col-sm-6 col-xs-7">
-            <h3><a href="/users/<%= user.id %>"><%= user.name %></a></h3>
-            <% user.user_activities.each do |user_activity| %>
-              <% if user_activity.done == true %>
-                <p><%= user_activity.activity.description %></p>
+  <div class="col-xs-12 border-box">
+    <h2 class="ml-10">What's everyone been up to?</h2>
+    <div class="row">
+      <% @tags.each do |tag| %>
+        <div class="col-xs-12 col-md-4">
+          <div class="row">
+            <div class="col-xs-5 col-md-3">
+              <div class="profile_photo_small">
+                <img src="images/<%= tag.name&.downcase %>.jpg" onerror="this.src='images/business_cat.jpg'">
+              </div>
+            </div>
+            <div class="col-xs-7 col-md-8">
+              <h3><a href="/interests/<%= tag.id %>"><%= tag.name %></a></h3>
+              <% tag.activities.each do |activity| %>
+                <p><%= activity.description %></p>
               <% end %>
-            <% end %>
+            </div>
           </div>
         </div>
-      </div>
-    <% end %>
-  </div>
-
-  <div class="col-md-3 col-md-offset-1 col-sm-4 col-sm-offset-1 col-xs-10">
-    <h2>What do you want to do?</h2>
-      <% @tags.each do |tag| %>
-        <h3><a href="/interests/<%= tag.id %>"><%= tag.name %></a></h3>
       <% end %>
+    </div>
   </div>
 </div>
