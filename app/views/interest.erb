@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-sm-7">
     <h2><%= @interest.name %></h2>
-
+    <br>
     <h3>Check out these activities</h3>
     <% @interest.activities.each do |activity| %>
       <h4><a href="<%= activity.link %>" target="_blank"><%= activity.description %></a>
@@ -35,7 +35,7 @@
         <% end %>
       <% end %>
     <% else %>
-      <a href="/auth/twitter">Sign In to See</a>
+      <a href="/auth/twitter" class="btn btn-primary">Sign In to See</a>
     <% end %>
   </div>
 
