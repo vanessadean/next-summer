@@ -1,20 +1,18 @@
 <h2>What are you interested in?</h2>
 <div class="row">
   <% @interests.each do |tag| %>
-    <div class="col-xs-12 col-md-3">
+    <div class="col-sms-12 col-md-4">
       <h3><%= tag.name %></h3>
       <% tag.activities.each do |activity| %>
-        <h4>
-          <a href="<%= activity.link %>"><%= activity.description %></a>
-          <% if current_user&.twitter == "vanessadeano" %>
-            <div class="interest-button left-button">
-              <form action="/delete" method="post">
-                <input type="hidden" name="activity_id" value="<%= activity.id %>"/>
-                <button class="btn btn-sm btn-success" type="submit">X</button>
-              </form>
-            </div>
-          <% end %>
-        </h4>
+        <h4><a href="<%= activity.link %>"><%= activity.description %></a></h4>
+        <% if current_user&.twitter == "vanessadeano" %>
+          <div class="interest-button left-button">
+            <form action="/delete" method="post">
+              <input type="hidden" name="activity_id" value="<%= activity.id %>"/>
+              <button class="btn btn-sm btn-success" type="submit">X</button>
+            </form>
+          </div>
+        <% end %>
       <% end %>
     </div>
   <% end %>
