@@ -19,14 +19,8 @@ configure do
   use OmniAuth::Builder do
     provider :twitter, ENV['API_KEY'], ENV['API_SECRET_KEY']
   end
-end
 
-configure :development do
-  set :database, { adapter: 'postgresql', host: 'localhost', database: 'postgres' }
-end
-
-configure :production do
-  db = URI.parse(ENV['DATABASE_URL'] || 'postgres:///localhost/database')
+  db = URI.parse(ENV['DATABASE_URL'] || 'postgres://localhost/postgres')
 
   ActiveRecord::Base.establish_connection(
     adapter: db.scheme == 'postgres' ? 'postgresql' : db.scheme,
