@@ -21,7 +21,3 @@ Then add Twitter oauth credentials to the `.env` file
 ## Run
 
 `rackup -p 4567`
-
-## Demo link
-
-Deployed here: http://pure-hamlet-8964.herokuapp.com/

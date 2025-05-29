@@ -8,10 +8,6 @@ Dotenv.load
 Dir['./app/models/*.rb'].each { |file| require file }
 
 configure do
-  set :root, File.dirname(__FILE__)
-  set :public_folder, 'public'
-  set :views, 'app/views'
-
   use Rack::Session::Cookie, key: 'rack.session',
                              expire_after: 86400, # In seconds (this is 1 day)
                              secret: ENV['SECRET']
@@ -20,6 +16,20 @@ configure do
     provider :twitter, ENV['API_KEY'], ENV['API_SECRET_KEY']
   end
 
+  set :root, File.dirname(__FILE__)
+  set :public_folder, 'public'
+  set :views, 'app/views'
+end
+
+configure :development do
+  set :database, { adapter: 'sqlite3', database: '../db/sqlite3' }
+end
+
+configure :test do
+  set :database, { adapter: 'sqlite3', database: '../db/sqlite3_test' }
+end
+
+configure :production do
   db = URI.parse(ENV['DATABASE_URL'] || 'postgres://localhost/postgres')
 
   ActiveRecord::Base.establish_connection(

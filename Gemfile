@@ -1,15 +1,16 @@
 source 'https://rubygems.org'
 
-ruby '2.6.5'
+ruby '3.4.2'
 
 gem 'activerecord'
 gem 'dotenv'
 gem 'omniauth-twitter'
-gem 'pg'
+gem 'puma'
 gem 'rake'
+gem 'rackup'
+gem 'sqlite3'
 gem 'sinatra'
 gem 'sinatra-activerecord'
-gem 'tux'
 
 group :development do
   gem 'pry'
